@@ -1,0 +1,22 @@
+sudo apt update
+sudo apt upgrade
+sudo apt-get remove apache2
+sudo apt-get install lighttpd
+sudo nano /var/www/html/index.html
+sudo apt-get install php7.4-fpm php7.4-mbstring php7.4-mysql php7.4-curl php7.4-gd php7.4-curl php7.4-zip php7.4-xml -y
+if php not installed run this command
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get install php7.4-fpm php7.4-mbstring php7.4-mysql php7.4-curl php7.4-gd php7.4-curl php7.4-zip php7.4-xml -y
+sudo lighttpd-enable-mod fastcgi
+sudo lighttpd-enable-mod fastcgi-php
+sudo nano /etc/lighttpd/conf-available/15-fastcgi-php.conf
+fastcgi.server += ( ".php" =>
+        ((
+                "socket" => "/var/run/php/php7.4-fpm.sock",
+                "broken-scriptfilename" => "enable"
+        ))
+)
+
+sudo service lighttpd force-reload
+sudo nano /var/www/html/index.php
+<?php phpinfo() ?>
