@@ -1,4 +1,4 @@
-is
+
 <?php
 
 system("gpio -g mode 17 out ");
